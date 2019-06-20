@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kerolloz/gt.git"
+    "url": "git+https://github.com/kerolloz/team-up.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kerolloz/gt/issues"
+    "url": "https://github.com/kerolloz/team-up/issues"
   },
-  "homepage": "https://github.com/kerolloz/gt#readme",
+  "homepage": "https://github.com/kerolloz/team-up#readme",
   "dependencies": {
     "colors": "^1.3.3",
     "cors": "^2.8.5",
