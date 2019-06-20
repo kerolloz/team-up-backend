@@ -1,6 +1,6 @@
 import clrs from 'colors';
 
-const requiredEnv = ['MONGODB_URL', 'JWT_SECRET_KEY'];
+const requiredEnv = ['MONGODB_URL'];
 
 export async function check() {
   const unsetEnv = requiredEnv.filter(env => process.env[env] === undefined);
