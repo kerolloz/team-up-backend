@@ -33,7 +33,7 @@ export function validateUser(user: any) {
   const schema = {
     name: Joi.string().regex(/^[a-zA-Z][a-zA-Z\s]*$/).min(5).max(200).required(),
     email: Joi.string().min(3).max(50).required().email(),
-    skills: Joi.array().items(Joi.string().regex(/^[a-z][a-z\-\+\.]*$/).min(2)).required()
+    skills: Joi.array().items(Joi.string().regex(/^[a-z][a-z0-9\-\+\.]*$/).min(2)).required()
   };
 
   return Joi.validate(user, schema);
