@@ -41,6 +41,30 @@ export async function all_users(req: Request, res: Response, next: any) {
   });
 }
 
+export async function remove(req: Request, res: Response) {
+  const token = req.params.token;
+
+  const user = await User.findOne({
+    verificationToken: token
+  });
+
+  if (!user)
+    return res.status(400).json({
+      message: 'Invalid token'
+    });
+
+  try {
+    await user.delete();
+    return res.json({
+      message: 'Okay, Deleted Successfully!'
+    });
+  } catch (err) {
+    return res.status(400).json({
+      message: 'Something went wrong, please report this issue!'
+    });
+  }
+}
+
 export async function search(req: Request, res: Response) {
   if (Object.keys(req.query).length > 1)
     return res.status(422).json({
