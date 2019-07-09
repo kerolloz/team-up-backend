@@ -17,7 +17,7 @@ export async function signup(req: Request, res: Response) {
   const user: any = new User(req.body);
 
   user.generateEmailVerificationToken();
-  user.sendVerificationEmail(req.headers.host);
+  user.sendVerificationEmail();
 
   await user.save();
 

@@ -42,8 +42,8 @@ userSchema.methods.generateEmailVerificationToken = function() {
   return this.verificationToken;
 };
 
-userSchema.methods.sendVerificationEmail = function(host: string | undefined) {
-  const sender: { email: string; password: string } = {
+userSchema.methods.sendVerificationEmail = function() {
+  const sender = {
     email: process.env.EMAIL || '',
     password: process.env.EMAIL_PASSWORD || ''
   };
