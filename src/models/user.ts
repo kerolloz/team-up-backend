@@ -68,27 +68,29 @@ userSchema.methods.sendVerificationEmail = function(host: string | undefined) {
   }`;
   const removeLink = `${base_url}/remove.html?token=${this.verificationToken}`;
 
-  return transporter.sendMail({
-    from: `"TEAM UP" <${sender.email}>`,
-    to: this.email,
-    subject: 'Registration - Verification mail',
-    html: `
-    <h1 align='center'>Welcome to TEAM UP!</h1> <br>
-    <h2>We are happy to see you, ${this.name}.</h2>
-    <p style="font-size: 15px">
-      Please use <a href='${verfificationLink}' target='_blank'>this</a> link to <b>verify your Email</b>!
-      <br><br>
-      If there is anything wrong with the data you provided,
-      You can use <a href='${removeLink}' target='_blank'>this</a> link to <b>remove yourself from our database</b>!
-      <br>
-      <b>Note:</b> When you join a team, we recommend that you remove yourself from our database!
-      So, only students who haven't joined a team yet would appear on our website.
-    </p>
-    <p>
-    Facing any trouble? report an issue <a href='https://github.com/kerolloz/team-up/issues'>here</a>
-    </p>
-    `
-  });
+  transporter
+    .sendMail({
+      from: `"TEAM UP" <${sender.email}>`,
+      to: this.email,
+      subject: 'Registration - Verification mail',
+      html: `
+      <h1 align='center'>Welcome to TEAM UP!</h1> <br>
+      <h2>We are happy to see you, ${this.name}.</h2>
+      <p style="font-size: 15px">
+        Please use <a href='${verfificationLink}' target='_blank'>this</a> link to <b>verify your Email</b>!
+        <br><br>
+        If there is anything wrong with the data you provided,
+        You can use <a href='${removeLink}' target='_blank'>this</a> link to <b>remove yourself from our database</b>!
+        <br>
+        <b>Note:</b> When you join a team, we recommend that you remove yourself from our database!
+        So, only students who haven't joined a team yet would appear on our website.
+      </p>
+      <p>
+      Facing any trouble? report an issue <a href='https://github.com/kerolloz/team-up/issues'>here</a>
+      </p>`
+    })
+    .then(() => console.log('An email was sent to ', this.email))
+    .catch(() => console.log('Failed sending email to ', this.email));
 };
 
 userSchema.plugin(mongoosePaginate);
