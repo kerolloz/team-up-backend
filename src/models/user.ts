@@ -60,7 +60,7 @@ userSchema.methods.sendVerificationEmail = function(host: string | undefined) {
     }
   });
 
-  const base_url = "https://kerolloz.me/team-up-front";
+  const base_url = 'https://kerolloz.me/team-up';
   // const base_url = 'http://localhost:5500';
 
   const verfificationLink = `${base_url}/verify.html?token=${
