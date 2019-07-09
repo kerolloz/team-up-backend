@@ -7,11 +7,14 @@ export async function verify(req: Request, res: Response) {
     verificationToken: token
   });
 
-  if (!user) return res.status(400).send('Invalid token');
+  if (!user)
+    return res.status(400).json({
+      message: 'Invalid token'
+    });
 
   if (user.isVerified)
-    return res.json({
-      message: 'You email has been already verified!'
+    return res.status(422).json({
+      message: 'You email has already been verified!'
     });
 
   user.isVerified = true;
@@ -19,4 +22,5 @@ export async function verify(req: Request, res: Response) {
   res.json({
     message: 'You email has been verified successfully!'
   });
+  // send another email with a link for account deletion
 }
