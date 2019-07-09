@@ -16,6 +16,9 @@ export async function signup(req: Request, res: Response) {
 
   const user: any = new User(req.body);
 
+  user.generateEmailVerificationToken();
+  user.sendVerificationEmail(req.headers.host);
+
   await user.save();
 
   res.json({
@@ -24,7 +27,9 @@ export async function signup(req: Request, res: Response) {
 }
 
 export async function all_users(req: Request, res: Response, next: any) {
-  if (Object.keys(req.query).length) return next(); // if this is a search query, go to search function
+  if (Object.keys(req.query).length)
+    if (!(req.query.pageNumber || req.query.pageSize)) return next();
+  // if this is a search query, go to search function
   const options = {
     page: parseInt(req.query.pageNumber) || 1,
     limit: parseInt(req.query.pageSize) || 10
@@ -60,13 +65,14 @@ async function get_users_with_skills(skills: string[]) {
   skills = skills.map(skill => skill.toLowerCase());
   console.log(skills);
   return await User.find({
+    isVerified: true,
     skills: { $all: skills }
   });
 }
 
 async function get_user_by_name(name: String) {
   return await User.find(
-    { $text: { $search: name } },
+    { isVerified: true, $text: { $search: name } },
     { score: { $meta: 'textScore' } }
   ).sort({ score: { $meta: 'textScore' } });
 }
