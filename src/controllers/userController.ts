@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { User, validateUser } from '../models/user';
 
 export async function signup(req: Request, res: Response) {
@@ -26,7 +26,8 @@ export async function signup(req: Request, res: Response) {
   });
 }
 
-export async function all_users(req: Request, res: Response, next: any) {
+export async function all_users(req: Request, res: Response, next: NextFunction) {
+
   if (Object.keys(req.query).length)
     if (!(req.query.pageNumber || req.query.pageSize)) return next();
   // if this is a search query, go to search function
