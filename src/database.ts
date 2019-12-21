@@ -14,7 +14,8 @@ export async function connect() {
     const connection = await mongoose.connect(mongoURL, {
       useNewUrlParser: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useUnifiedTopology: true
     });
 
     console.info(
