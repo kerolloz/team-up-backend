@@ -93,7 +93,7 @@ userSchema.methods.sendVerificationEmail = function () {
       </p>`
     })
     .then(() => console.log('An email was sent to ', this.email))
-    .catch(() => console.log('Failed sending email to ', this.email));
+    .catch((err) => console.log('Failed sending email to ', this.email, err));
 };
 
 userSchema.plugin(mongoosePaginate);
