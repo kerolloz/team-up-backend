@@ -38,12 +38,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.index({ ALB_TITLE: 'text', ART_NAME: 'text', SNG_TITLE: 'text' });
 
-userSchema.methods.generateEmailVerificationToken = function() {
+userSchema.methods.generateEmailVerificationToken = function () {
   this.verificationToken = crypto.randomBytes(16).toString('hex');
   return this.verificationToken;
 };
 
-userSchema.methods.sendVerificationEmail = function() {
+userSchema.methods.sendVerificationEmail = function () {
   const sender = {
     email: process.env.EMAIL || '',
     password: process.env.EMAIL_PASSWORD || ''
@@ -51,10 +51,12 @@ userSchema.methods.sendVerificationEmail = function() {
 
   if (!sender.email || !sender.password) {
     console.log(colors.yellow('Undefined Email | password'));
+    return 0; // don't send an email
   }
 
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
+    secure: true, // use SSL
     auth: {
       user: sender.email,
       pass: sender.password
@@ -66,7 +68,7 @@ userSchema.methods.sendVerificationEmail = function() {
 
   const verfificationLink = `${base_url}/verify.html?token=${
     this.verificationToken
-  }`;
+    }`;
   const removeLink = `${base_url}/remove.html?token=${this.verificationToken}`;
 
   transporter
