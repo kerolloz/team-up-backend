@@ -15,7 +15,9 @@ export default endpoint(
     const user = await UserModel.findOne({ verificationToken });
 
     if (!user) {
-      throw new HttpException(NOT_FOUND, [{ message: 'Invalid token' }]);
+      throw new HttpException(NOT_FOUND, [
+        { label: 'params.token', message: 'Invalid token' },
+      ]);
     }
 
     await user.remove();

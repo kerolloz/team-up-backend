@@ -13,7 +13,7 @@ export default endpoint(
     });
     if (emailAlreadyExists) {
       throw new HttpException(UNPROCESSABLE_ENTITY, [
-        { message: 'Email Already Exists' },
+        { label: 'body.email', message: 'Email Already Exists' },
       ]);
     }
 

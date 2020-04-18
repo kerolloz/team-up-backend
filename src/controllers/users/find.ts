@@ -30,7 +30,10 @@ export default endpoint(
   async (req: Request): Promise<SuccessfulResponse> => {
     if (Object.keys(req.query).length > 1) {
       throw new HttpException(UNPROCESSABLE_ENTITY, [
-        { message: 'You should use only one search parameter' },
+        {
+          label: 'query.search',
+          message: 'You should use only one search parameter',
+        },
       ]);
     }
 
