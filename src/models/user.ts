@@ -54,7 +54,7 @@ class User {
       },
     });
 
-    const FRONT_BASE_URI = 'https://team-up-fci.herokuapp.com/';
+    const FRONT_BASE_URI = 'https://team-up-fci.herokuapp.com';
     // const FRONT_BASE_URI = 'http://localhost:8080';
 
     const verificationLink = `${FRONT_BASE_URI}/verify?token=${this.verificationToken}`;
