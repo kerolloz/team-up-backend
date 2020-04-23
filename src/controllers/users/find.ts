@@ -34,11 +34,14 @@ export default endpoint(
       ]);
     }
 
+    let users: mongoose.Document[] = [];
     const { name, skills } = req.query;
     const s = typeof skills === 'string' ? [skills] : skills;
-    const users = skills
-      ? await findBySkills(s as string[])
-      : await findByName(name as string);
+    if (name || skills) {
+      users = skills
+        ? await findBySkills(s as string[])
+        : await findByName(name as string);
+    }
 
     return { content: users };
   },
