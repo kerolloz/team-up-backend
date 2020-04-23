@@ -1,29 +1,24 @@
-import clrs from 'colors';
-import mongoose from 'mongoose';
+import colors from 'colors';
+import { mongoose } from '@typegoose/typegoose';
 
-export async function connect() {
-  const mongoURL: string | undefined = process.env.MONGODB_URL;
-  if (!mongoURL) {
-    const errMsg = clrs.red(
-      `🤨 ${clrs.yellow('MONGODB_URL').bold} environment variable was not set`
-    );
-    throw new Error(errMsg);
-  }
+export async function connect(): Promise<void> {
+  const { MONGODB_URI = '' } = process.env;
 
   try {
-    const connection = await mongoose.connect(mongoURL, {
+    await mongoose.connect(MONGODB_URI, {
+      useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
-      useUnifiedTopology: true
     });
 
     console.info(
-      clrs.green(`🤟 Successfully connected to ${clrs.yellow(mongoURL)}`)
+      colors.green(`Successfully connected to ${colors.yellow(MONGODB_URI)}`),
     );
-    return connection;
   } catch (err) {
-    console.error(clrs.red(`🤔 Failed to connect to ${clrs.yellow(mongoURL)}`));
+    console.error(
+      colors.red(`Failed to connect to ${colors.yellow(MONGODB_URI)}`),
+    );
     throw err;
   }
 }

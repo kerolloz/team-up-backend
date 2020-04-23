@@ -1,16 +1,16 @@
-import clrs from 'colors';
+import colors from 'colors';
 
-const requiredEnv = ['MONGODB_URL'];
+const reqEnvVars = ['MONGODB_URI', 'EMAIL', 'EMAIL_PASSWORD'];
 
-export async function check() {
-  const unsetEnv = requiredEnv.filter(env => process.env[env] === undefined);
+export function check(): void {
+  const unsetEnv = reqEnvVars.filter((eVar) => process.env[eVar] === undefined);
   if (unsetEnv.length > 0) {
-    const errMsg = clrs.red(
-      `🤨 Required env variables are not set: [${
-        clrs.yellow(unsetEnv.join(', '.red)).bold
-      }]`
+    const errMsg = colors.red(
+      `Required env variables are not set: [${colors.yellow(
+        unsetEnv.join(', '.red),
+      )}]`,
     );
     throw new Error(errMsg);
   }
-  console.info(clrs.green(`🤟 Configuration`));
+  console.info(colors.green(`Configuration OKAY!`));
 }

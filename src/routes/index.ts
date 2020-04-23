@@ -1,17 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import { HttpException, NOT_FOUND } from '../core/exceptions';
 import users from './users.route';
-import verify from './verify.route';
-import remove from './remove.route';
 
 const router = express.Router();
 
 router.use('/users', users);
-router.use('/verify', verify);
-router.use('/remove', remove);
 
 // 404
-router.all('*', function(req:Request, res:Response) {
-  res.status(404).json({ message: '🤔 Are you lost ?!' });
+router.all('*', () => {
+  throw new HttpException(NOT_FOUND);
 });
 
 export default router;

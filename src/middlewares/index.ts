@@ -1,1 +1,1 @@
-export * from './errorHandler';
+export { default as exceptionHandler } from './exceptionHandler';

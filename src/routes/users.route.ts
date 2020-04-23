@@ -1,10 +1,11 @@
 import express from 'express';
-import * as userController from '../controllers/userController';
+import { users } from '../controllers';
 
 const router = express.Router();
 
-router.post('/', userController.signup);
-router.get('/', userController.all_users); // * all_users should have search method after it  *
-router.get('/', userController.search); //    *  search should have all_users before it       *
+router.post('/', users.signup);
+router.get('/', users.find);
+router.delete('/:token', users.remove);
+router.post('/verify/:token', users.verify);
 
 export default router;
