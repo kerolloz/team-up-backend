@@ -1,6 +1,6 @@
 {
   "name": "team-up.frontend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A simple web application to gather teams for graduation project",
   "main": "dist/index.js",
   "scripts": {
