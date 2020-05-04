@@ -54,11 +54,11 @@ class User {
       },
     });
 
-    // const FRONT_BASE_URI = 'https://kerolloz.me/team-up';
-    const FRONT_BASE_URI = 'http://localhost';
+    const FRONT_BASE_URI = 'https://team-up-fci.herokuapp.com/';
+    // const FRONT_BASE_URI = 'http://localhost:8080';
 
-    const verificationLink = `${FRONT_BASE_URI}/verify.html?token=${this.verificationToken}`;
-    const removeLink = `${FRONT_BASE_URI}/remove.html?token=${this.verificationToken}`;
+    const verificationLink = `${FRONT_BASE_URI}/verify?token=${this.verificationToken}`;
+    const removeLink = `${FRONT_BASE_URI}/remove?token=${this.verificationToken}`;
 
     transporter
       .sendMail({
