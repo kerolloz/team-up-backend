@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { UserModel, userValidations } from '../../models/user';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';
 import { HttpException, UNPROCESSABLE_ENTITY } from '../../core/exceptions';
+import { generateToken } from '../../services/tokenGenerator';
 
 export default endpoint(
   {
@@ -18,6 +19,7 @@ export default endpoint(
     }
 
     const user = new UserModel(req.body);
+    user.verificationToken = generateToken();
     user.sendVerificationEmail();
     await user.save();
 
