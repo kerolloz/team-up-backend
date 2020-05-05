@@ -14,10 +14,7 @@ async function findBySkills(skills: string[]): Promise<mongoose.Document[]> {
 }
 
 async function findByName(name: string): Promise<mongoose.Document[]> {
-  return await UserModel.find(
-    { isVerified: true, $text: { $search: name } },
-    { score: { $meta: 'textScore' } },
-  ).sort({ score: { $meta: 'textScore' } });
+  return await UserModel.find({ isVerified: true, $text: { $search: name } });
 }
 
 export default endpoint(
