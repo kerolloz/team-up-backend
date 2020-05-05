@@ -12,7 +12,6 @@ import nodemailer from 'nodemailer';
   schemaOptions: {
     toJSON: {
       versionKey: false,
-      transform: (_, ret): void => (ret.verificationToken = undefined),
     },
   },
 })
@@ -26,10 +25,10 @@ class User {
   @arrayProp({ required: true, items: String })
   skills!: string[];
 
-  @prop({ default: false })
+  @prop({ default: false, select: false })
   isVerified!: boolean;
 
-  @prop({ required: true })
+  @prop({ required: true, select: false })
   verificationToken!: string;
 
   sendVerificationEmail(): void {
