@@ -21,6 +21,6 @@ export default endpoint(
     user.sendVerificationEmail();
     await user.save();
 
-    return { status: 201, content: user };
+    return { status: 201, content: 'Registered Successfully' };
   },
 );
