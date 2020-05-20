@@ -1,21 +1,10 @@
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
-const sender = {
-  email: process.env.EMAIL,
-  password: process.env.EMAIL_PASSWORD,
-};
-
-if (!sender.email || !sender.password) {
-  throw new Error('Undefined Email | password');
+if (!process.env.SENDGRID_API_KEY) {
+  throw new Error('SENDGRID_API_KEY environment variable is required');
 }
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: sender.email,
-    pass: sender.password,
-  },
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
  * sends an email for verification
@@ -23,13 +12,19 @@ const transporter = nodemailer.createTransport({
  * @param to send the email to
  */
 export function sendEmail(html: string, to: string): void {
-  transporter
-    .sendMail({
-      from: `"TEAM UP" <${sender.email}>`,
-      to,
-      subject: 'Registration - Verification',
-      html,
-    })
-    .then(() => console.log('An email was sent to', to))
-    .catch((err) => console.log('Failed sending email to', to, err));
+  if (!process.env.EMAIL) {
+    throw new Error(
+      'SENDGRID_API_KEY EMAIL environment variables are required',
+    );
+  }
+  const msg = {
+    to,
+    from: { name: 'TEAM UP', email: process.env.EMAIL },
+    subject: 'Registration - Verification',
+    html,
+  };
+  sgMail
+    .send(msg)
+    .then((_) => console.log(`An email was sent to ${to}`))
+    .catch(console.error);
 }
