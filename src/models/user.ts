@@ -21,7 +21,7 @@ export class User {
   @prop({ required: true, unique: true })
   email!: string;
 
-  @arrayProp({ required: true, items: String })
+  @prop({ required: true, type: String })
   skills!: string[];
 
   @prop({ default: false, select: false })
