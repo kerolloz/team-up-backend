@@ -1,6 +1,11 @@
 import colors from 'colors';
 
-const reqEnvVars = ['MONGODB_URI', 'EMAIL', 'SENDGRID_API_KEY'];
+const reqEnvVars = [
+  'MONGODB_URI',
+  'EMAIL',
+  'SENDGRID_API_KEY',
+  'FRONTEND_BASE_URI',
+];
 
 export function check(): void {
   const unsetEnv = reqEnvVars.filter((eVar) => process.env[eVar] === undefined);

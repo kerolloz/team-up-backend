@@ -7,7 +7,7 @@ if (!process.env.SENDGRID_API_KEY) {
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
- * sends an email for verification
+ * sends an email
  * @param html the email content in html
  * @param to send the email to
  */
@@ -25,6 +25,6 @@ export function sendEmail(html: string, to: string): void {
   };
   sgMail
     .send(msg)
-    .then((_) => console.log(`An email was sent to ${to}`))
+    .then(() => console.log(`An email was sent to ${to}`))
     .catch(console.error);
 }
