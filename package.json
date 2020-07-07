@@ -35,7 +35,7 @@
     "install": "^0.13.0",
     "mongoose": "^5.9.18",
     "morgan": "^1.10.0",
-    "npm": "^6.14.5",
+    "npm": "^6.14.6",
     "source-map-support": "^0.5.19",
     "typescript": "^3.9.5"
   },
