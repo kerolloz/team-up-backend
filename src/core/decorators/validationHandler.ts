@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { HttpException, UNPROCESSABLE_ENTITY, NOT_FOUND } from '../exceptions';
 import { IValidationRules, IErrorResponse } from './types';

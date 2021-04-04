@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import { sendEmail } from '../services/email';
 import { createVerificationEmail } from '../utils/createVerificationEmail';

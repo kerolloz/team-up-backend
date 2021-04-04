@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { Request } from 'express';
 import mongoose from 'mongoose';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';

@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { Request } from 'express';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';
 import { HttpException, NOT_FOUND } from '../../core/exceptions';
