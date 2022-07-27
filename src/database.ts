@@ -5,12 +5,7 @@ export async function connect(): Promise<void> {
   const { MONGODB_URI = '' } = process.env;
 
   try {
-    await mongoose.connect(MONGODB_URI, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    });
+    await mongoose.connect(MONGODB_URI);
 
     console.info(
       colors.green(`Successfully connected to ${colors.yellow(MONGODB_URI)}`),
