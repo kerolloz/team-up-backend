@@ -13,9 +13,9 @@ export default endpoint(
       email: req.body.email,
     });
     if (emailAlreadyExists) {
-      throw new HttpException(UNPROCESSABLE_ENTITY, [
-        { label: 'body.email', message: 'Email Already Exists' },
-      ]);
+      throw new HttpException(UNPROCESSABLE_ENTITY, {
+        message: 'Email already exists',
+      });
     }
 
     const user = new UserModel(req.body);

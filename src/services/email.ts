@@ -1,10 +1,7 @@
 import sgMail from '@sendgrid/mail';
+import { emailEnvVar, sendGridAPIKeyEnvVar } from '../config';
 
-if (!process.env.SENDGRID_API_KEY) {
-  throw new Error('SENDGRID_API_KEY environment variable is required');
-}
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(sendGridAPIKeyEnvVar);
 
 /**
  * sends an email
@@ -12,14 +9,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  * @param to send the email to
  */
 export function sendEmail(html: string, to: string): void {
-  if (!process.env.EMAIL) {
-    throw new Error(
-      'SENDGRID_API_KEY EMAIL environment variables are required',
-    );
-  }
   const msg = {
     to,
-    from: { name: 'TEAM UP', email: process.env.EMAIL },
+    from: { name: 'TEAM UP', email: emailEnvVar },
     subject: 'Registration - Verification',
     html,
   };

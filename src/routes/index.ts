@@ -10,12 +10,12 @@ router.use('/users', users);
 // healthcheck
 router.get(
   '/ping',
-  endpoint((_) => 'pong'),
+  endpoint(() => 'pong'),
 );
 
 // 404
 router.all('*', () => {
-  throw new HttpException(NOT_FOUND);
+  throw new HttpException(NOT_FOUND, { message: 'Are you lost?' });
 });
 
 export default router;

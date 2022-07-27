@@ -1,18 +1,15 @@
 import colors from 'colors';
-import { mongoose } from '@typegoose/typegoose';
+import mongoose from 'mongoose';
+import { mongoURIEnvVar } from './config';
 
 export async function connect(): Promise<void> {
-  const { MONGODB_URI = '' } = process.env;
-
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(mongoURIEnvVar);
 
-    console.info(
-      colors.green(`Successfully connected to ${colors.yellow(MONGODB_URI)}`),
-    );
+    console.info(colors.green('Successfully connected to Mongodb ✅'));
   } catch (err) {
     console.error(
-      colors.red(`Failed to connect to ${colors.yellow(MONGODB_URI)}`),
+      colors.red(`Failed to connect to ${colors.yellow(mongoURIEnvVar)}`),
     );
     throw err;
   }

@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
-import { HttpException, SERVER_ERROR } from '../core/exceptions';
+import { HttpException, SERVER_ERROR } from '../core';
+import { Request, Response, NextFunction } from 'express';
 
 export default function exceptionHandler(
   err: HttpException,
@@ -7,12 +7,10 @@ export default function exceptionHandler(
   res: Response,
   _next: NextFunction,
 ): Response {
-  const { status = 500, stack } = err;
-  let { message, errors } = err;
-  if (status >= 500) {
-    // always general message no errors, NEVER expose the errors
-    ({ message } = SERVER_ERROR);
-    errors = undefined;
+  const { errors, status = SERVER_ERROR, stack } = err;
+  let message = err.message === '' ? undefined : err.message; // no empty messages
+  if (status >= SERVER_ERROR) {
+    message = 'Internal server error'; // always general message, NEVER expose the error
     console.error(stack);
   }
   return res.status(status).json({ message, errors });

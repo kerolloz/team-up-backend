@@ -1,9 +1,7 @@
 import colors from 'colors';
-import * as config from './config';
 import * as database from './database';
 import * as server from './server';
 
-config.check();
 database
   .connect()
   .then(server.run)

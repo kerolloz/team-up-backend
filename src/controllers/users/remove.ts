@@ -1,7 +1,7 @@
-import Joi from 'joi';
 import { Request } from 'express';
+import Joi from 'joi';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';
-import { HttpException, NOT_FOUND } from '../../core/exceptions';
+import { BAD_REQUEST, HttpException } from '../../core/exceptions';
 import { UserModel } from '../../models/user';
 
 export default endpoint(
@@ -15,9 +15,9 @@ export default endpoint(
     const user = await UserModel.findOne({ verificationToken });
 
     if (!user) {
-      throw new HttpException(NOT_FOUND, [
-        { label: 'params.token', message: 'Invalid token' },
-      ]);
+      throw new HttpException(BAD_REQUEST, {
+        message: 'Invalid token',
+      });
     }
 
     await user.remove();

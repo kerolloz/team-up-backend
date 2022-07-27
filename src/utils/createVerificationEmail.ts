@@ -1,18 +1,12 @@
+import { frontendBaseURIEnvVar } from '../config';
 import { User } from '../models/user';
-
-if (!process.env.FRONTEND_BASE_URI) {
-  throw new Error('FRONTEND_BASE_URI environment variable is required');
-}
-
-const FRONTEND_BASE_URI = process.env.FRONTEND_BASE_URI;
-// const FRONTEND_BASE_URI = 'http://localhost:8080';
 
 /**
  * creates html for the verification email
  */
 export function createVerificationEmail(this: User): string {
-  const verificationLink = `${FRONTEND_BASE_URI}/verify?token=${this.verificationToken}`;
-  const removeLink = `${FRONTEND_BASE_URI}/remove?token=${this.verificationToken}`;
+  const verificationLink = `${frontendBaseURIEnvVar}/verify?token=${this.verificationToken}`;
+  const removeLink = `${frontendBaseURIEnvVar}/remove?token=${this.verificationToken}`;
 
   return `
   <h1 align='center'>Welcome to TEAM UP!</h1> <br>

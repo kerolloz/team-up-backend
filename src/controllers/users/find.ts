@@ -1,5 +1,5 @@
-import Joi from 'joi';
 import { Request } from 'express';
+import Joi from 'joi';
 import mongoose from 'mongoose';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';
 import { HttpException, UNPROCESSABLE_ENTITY } from '../../core/exceptions';
@@ -26,12 +26,16 @@ export default endpoint(
   },
   async (req: Request): Promise<SuccessfulResponse> => {
     if (Object.keys(req.query).length > 1) {
-      throw new HttpException(UNPROCESSABLE_ENTITY, [
-        {
-          label: 'query.search',
-          message: 'You should use only one search parameter',
-        },
-      ]);
+      throw new HttpException(UNPROCESSABLE_ENTITY, {
+        message: 'You should use only one search parameter',
+        errors: [
+          {
+            label: 'query.search',
+            type: 'query',
+            message: 'use name or skills',
+          },
+        ],
+      });
     }
 
     let users: mongoose.Document[] = [];
