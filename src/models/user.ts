@@ -1,7 +1,5 @@
-import Joi from 'joi';
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
-import { sendEmail } from '../services/email';
-import { createVerificationEmail } from '../utils/createVerificationEmail';
+import Joi from 'joi';
 
 @modelOptions({
   schemaOptions: {
@@ -25,11 +23,6 @@ export class User {
 
   @prop({ required: true, select: false })
   verificationToken!: string;
-
-  sendVerificationEmail(): void {
-    const html = createVerificationEmail.call(this);
-    sendEmail(html, this.email);
-  }
 }
 
 export const UserModel = getModelForClass(User);

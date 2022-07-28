@@ -3,6 +3,7 @@ import { UserModel, userValidations } from '../../models/user';
 import { endpoint, SuccessfulResponse } from '../../core/decorators';
 import { HttpException, UNPROCESSABLE_ENTITY } from '../../core/exceptions';
 import { generateToken } from '../../services/tokenGenerator';
+import { VerificationMailer } from '../../mailer';
 
 export default endpoint(
   {
@@ -20,8 +21,8 @@ export default endpoint(
 
     const user = new UserModel(req.body);
     user.verificationToken = generateToken();
-    user.sendVerificationEmail();
     await user.save();
+    new VerificationMailer(user).sendEmail();
 
     return { status: 201, content: 'Registered Successfully' };
   },
