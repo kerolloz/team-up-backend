@@ -4,6 +4,7 @@ import { mongoURIEnvVar } from './config';
 
 export async function connect(): Promise<void> {
   try {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(mongoURIEnvVar);
 
     console.info(colors.green('Successfully connected to Mongodb ✅'));
