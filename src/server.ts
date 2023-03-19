@@ -8,7 +8,7 @@ import { exceptionHandler } from './middlewares';
 import routes from './routes';
 
 const { NODE_ENV = 'development', PORT } = process.env;
-const app = express();
+export const app = express();
 
 // [TODO] use winston
 const logger =
