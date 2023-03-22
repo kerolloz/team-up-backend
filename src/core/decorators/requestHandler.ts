@@ -2,9 +2,10 @@ import { mongoose } from '@typegoose/typegoose';
 import { NextFunction, Request, Response } from 'express';
 import {
   BAD_REQUEST,
+  CONFLICT,
   HttpException,
-  UNPROCESSABLE_ENTITY,
   NOT_FOUND,
+  UNPROCESSABLE_ENTITY,
 } from '../exceptions';
 import {
   IDuplicateKeyError,
@@ -28,10 +29,10 @@ export function requestHandler(handler: EndpointHandler) {
       if (code === MONGO_DUPLICATE_KEY_ERROR_CODE) {
         const label = Object.keys(error.keyValue).join('.');
         const value = Object.values(error.keyValue).join(',');
-        const type = 'any.unique';
+        const type = 'any.duplicate';
         const message = `${label} (${value}) already exists`;
         return next(
-          new HttpException(BAD_REQUEST, {
+          new HttpException(CONFLICT, {
             message: VALIDATION_ERROR,
             errors: [{ label, type, message }],
           }),
