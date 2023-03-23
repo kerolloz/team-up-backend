@@ -7,12 +7,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    services:
-      mongodb:
-        # Docker Hub image
-        image: mongo
-        ports:
-          - 27017:27017
 
     steps:
       - name: Checkout code
@@ -31,9 +25,8 @@ jobs:
 
       - name: Run tests
         run: npm test
-        env: 
+        env:
           MONGODB_URI: anything
           EMAIL: anything
-          SENDGRID_API_KEY: SG.anything                                                               
-          FRONTEND_BASE_URI: https://team-up.tk                                                      
-          
+          SENDGRID_API_KEY: SG.anything
+          FRONTEND_BASE_URI: https://team-up.tk
