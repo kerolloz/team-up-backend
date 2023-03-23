@@ -212,3 +212,22 @@ describe('POST /verify/:token', () => {
     expect(response.body.message).to.equal('Invalid verification token');
   });
 });
+
+describe('DELETE /users/:token', () => {
+  it('returns 204 and an empty body when a valid token is provided', async () => {
+    const user = await UserModel.create(userData);
+    const response = await chai
+      .request(app)
+      .delete(`/users/${user.verificationToken}`);
+
+    expect(response.status).to.equal(204);
+    expect(response.body).to.have.empty.length;
+  });
+
+  it('returns 400 and an error message when an invalid token is provided', async () => {
+    const response = await chai.request(app).delete('/users/invalid-token');
+
+    expect(response.status).to.equal(400);
+    expect(response.body.message).to.equal('Invalid verification token');
+  });
+});
