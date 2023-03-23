@@ -1,5 +1,6 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import Joi from 'joi';
+import { generateToken } from '../services/tokenGenerator';
 
 @modelOptions({
   schemaOptions: {
@@ -21,7 +22,7 @@ export class User {
   @prop({ default: false, select: false })
   isVerified!: boolean;
 
-  @prop({ required: true, select: false })
+  @prop({ required: true, select: false, default: () => generateToken() })
   verificationToken!: string;
 }
 
