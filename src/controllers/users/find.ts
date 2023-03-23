@@ -6,7 +6,6 @@ import { HttpException, UNPROCESSABLE_ENTITY } from '../../core/exceptions';
 import { UserModel } from '../../models/user';
 
 async function findBySkills(skills: string[]): Promise<mongoose.Document[]> {
-  skills = skills.map((skill) => skill.toLowerCase());
   return await UserModel.find({
     isVerified: true,
     skills: { $all: skills },
@@ -20,12 +19,21 @@ async function findByName(name: string): Promise<mongoose.Document[]> {
 export default endpoint(
   {
     query: {
-      skills: Joi.alternatives(Joi.array().items(Joi.string()), Joi.string()),
+      skills: Joi.alternatives(
+        Joi.array().items(Joi.string().lowercase()),
+        Joi.string().lowercase(),
+      ),
       name: Joi.string(),
     },
   },
   async (req: Request): Promise<SuccessfulResponse> => {
-    if (Object.keys(req.query).length > 1) {
+    const { name, skills } = req.query;
+
+    if (!name && !skills) {
+      return { content: [] }; // Return empty array if no query is passed
+    }
+
+    if (name && skills) {
       throw new HttpException(UNPROCESSABLE_ENTITY, {
         message: 'You should use only one search parameter',
         errors: [
@@ -38,14 +46,11 @@ export default endpoint(
       });
     }
 
-    let users: mongoose.Document[] = [];
-    const { name, skills } = req.query;
-    const s = typeof skills === 'string' ? [skills] : skills;
-    if (name || skills) {
-      users = skills
-        ? await findBySkills(s as string[])
-        : await findByName(name as string);
-    }
+    const users = skills
+      ? await findBySkills(
+          (typeof skills === 'string' ? [skills] : skills) as string[],
+        )
+      : await findByName(name as string);
 
     return { content: users };
   },
