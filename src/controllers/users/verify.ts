@@ -1,30 +1,26 @@
-import { Request } from 'express';
 import Joi from 'joi';
-import { endpoint, SuccessfulResponse } from '../../core/decorators';
-import { BAD_REQUEST, HttpException } from '../../core/exceptions';
+import mongoose from 'mongoose';
+import { BAD_REQUEST, HttpException } from '../../core';
+import { endpoint } from '../../core/decorators';
 import { UserModel } from '../../models/user';
 
 export default endpoint(
-  {
-    params: {
-      token: Joi.string().required(),
-    },
-  },
-  async (req: Request): Promise<SuccessfulResponse> => {
+  { params: { token: Joi.string().required() } },
+  async (req) => {
     const verificationToken = req.params.token;
-    const user = await UserModel.findOne({ verificationToken });
-
-    if (!user) {
-      throw new HttpException(BAD_REQUEST, {
-        message: 'Invalid verification token',
+    await UserModel.findOneAndUpdate(
+      { verificationToken },
+      { $set: { isVerified: true } },
+    )
+      .orFail()
+      .catch((err) => {
+        if (err instanceof mongoose.Error.DocumentNotFoundError) {
+          throw new HttpException(BAD_REQUEST, {
+            message: 'Invalid verification token',
+          });
+        }
+        throw err;
       });
-    }
-
-    if (!user.isVerified) {
-      user.isVerified = true;
-      await user.save();
-    }
-
     return 'Your email has been verified successfully!';
   },
 );
