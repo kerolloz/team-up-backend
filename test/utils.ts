@@ -1,10 +1,12 @@
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
-const mongoTestDatabase = 'mongodb://localhost:27017/myapp_test';
-
 export const connectToDatabase = async () => {
+  const mongoServer = await MongoMemoryServer.create();
   mongoose.set('strictQuery', false);
-  await mongoose.connect(mongoTestDatabase);
+  await mongoose.connect(mongoServer.getUri(), {
+    dbName: 'testing',
+  });
 };
 
 export const disconnectFromDatabase = async () => {
