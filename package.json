@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "test": "NODE_ENV=test mocha --parallel -r ts-node/register -r dotenv/config  ./test/**/*.test.ts"
+    "test": "MONGOMS_VERSION=6.0.5 NODE_ENV=test mocha --parallel --timeout 50000 -r ts-node/register -r dotenv/config  ./test/**/*.test.ts"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-prettier": "^4.2.1",
     "mocha": "^10.2.0",
+    "mongodb-memory-server": "^8.12.1",
     "prettier": "^2.8.4",
     "sinon": "^15.0.2",
     "ts-node": "^10.9.1",
