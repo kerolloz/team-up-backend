@@ -27,12 +27,18 @@ export function validationHandler({
       query: Joi.object(query),
       body: Joi.object(body),
     });
-    const value = {
-      query: req.query,
-      body: req.body as unknown,
-    };
 
-    const { error } = schema.validate(value, JOI_VALIDATION_OPTIONS);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { error, value } = schema.validate(
+      { query: req.query, body: req.body as unknown },
+      JOI_VALIDATION_OPTIONS,
+    );
+
+    // update req with validated values
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    req.query = value.query;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    req.body = value.body;
 
     if (error) {
       const errors = toErrorResponse(error.details);
