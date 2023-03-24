@@ -190,12 +190,24 @@ describe('GET /users', () => {
   });
 });
 
-describe('POST /verify/:token', () => {
+describe('PUT /verify/:token', () => {
   it('returns 200 and a success message when a valid token is provided', async () => {
     const user = await UserModel.create(userData);
     const response = await chai
       .request(app)
-      .post(`/users/verify/${user.verificationToken}`);
+      .put(`/users/verify/${user.verificationToken}`);
+
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal(
+      'Your email has been verified successfully!',
+    );
+  });
+
+  it('returns 200 and a success message when a valid token is provided and the user is already verified -> endpoint is idempotent (i.e., multiple requests with the same token result in the same outcome)', async () => {
+    const user = await UserModel.create(verifiedUserData);
+    const response = await chai
+      .request(app)
+      .put(`/users/verify/${user.verificationToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal(
@@ -204,9 +216,7 @@ describe('POST /verify/:token', () => {
   });
 
   it('returns 400 and an error message when an invalid token is provided', async () => {
-    const response = await chai
-      .request(app)
-      .post('/users/verify/invalid-token');
+    const response = await chai.request(app).put('/users/verify/invalid-token');
 
     expect(response.status).to.equal(400);
     expect(response.body.message).to.equal('Invalid verification token');
