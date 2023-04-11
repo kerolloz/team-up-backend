@@ -14,7 +14,7 @@ describe('GET /ping', () => {
 });
 
 describe('GET /a-path-that-does-not-exist', () => {
-  it('returns 404 with {"message": "Not Found"}', async () => {
+  it('returns 404 with {"message": "Are you lost?"}', async () => {
     const res = await chai.request(app).get('/a-path-that-does-not-exist');
     expect(res.status).to.equal(404);
     expect(res.body.message).to.equal('Are you lost?');
