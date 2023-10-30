@@ -1,4 +1,4 @@
-# Team Up | Backend <a target="_blank" href="https://kounter.tk"><img align="right" src="https://t.ly/cAnN" /></a>
+# Team Up | Backend <a target="_blank" href="https://kounter.kerolloz.dev"><img align="right" src="https://t.ly/hJb9s" /></a>
 
 This is a TypeScript Node.js project that provides a backend API for the Team Up app. The project uses Express.js as the web framework and MongoDB as the database.
 
