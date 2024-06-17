@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: 20.x
 
-      - name: Lint
-        run: npm run lint
-
       - name: Install dependencies
         run: npm install
+
+      - name: Lint
+        run: npm run lint
 
       - name: Build TypeScript
         run: npm run build
