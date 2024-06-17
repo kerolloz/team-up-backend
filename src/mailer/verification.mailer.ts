@@ -1,7 +1,7 @@
+import { MailDataRequired } from '@sendgrid/mail';
 import { frontendBaseURIEnvVar } from '../config';
 import { User } from '../models/user';
 import { BaseMailer } from './base.mailer';
-import { MailDataRequired } from '@sendgrid/mail';
 
 export class VerificationMailer extends BaseMailer {
   private readonly SUBJECT = 'Team Up - Verify your Email';

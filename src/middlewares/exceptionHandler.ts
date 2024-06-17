@@ -1,5 +1,5 @@
+import { NextFunction, Request, Response } from 'express';
 import { HttpException, SERVER_ERROR } from '../core';
-import { Request, Response, NextFunction } from 'express';
 
 export default function exceptionHandler(
   err: HttpException,

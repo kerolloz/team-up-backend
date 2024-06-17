@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { endpoint, SuccessfulResponse } from '../../core/decorators';
+import { SuccessfulResponse, endpoint } from '../../core/decorators';
 import { VerificationMailer } from '../../mailer';
 import { UserModel, userValidations } from '../../models/user';
 

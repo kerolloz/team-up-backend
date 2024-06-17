@@ -1,9 +1,9 @@
-import chai from 'chai';
+import chaiModule from 'chai';
 import chaiHttp from 'chai-http';
 import { app } from '../src/server';
 
-chai.use(chaiHttp);
-const expect = chai.expect;
+const chai = chaiModule.use(chaiHttp);
+const { expect } = chai;
 
 describe('GET /ping', () => {
   it('returns 200 with {"message": "pong"}', async () => {

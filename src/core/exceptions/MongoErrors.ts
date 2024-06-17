@@ -1,5 +1,9 @@
-import { DocumentType } from '@typegoose/typegoose';
-import { MongoError, BulkWriteResult, BulkWriteOperationError } from 'mongodb';
+import type { DocumentType } from '@typegoose/typegoose';
+import type {
+  BulkWriteOperationError,
+  BulkWriteResult,
+  MongoError,
+} from 'mongodb';
 
 export const VALIDATION_ERROR = 'Validation Error';
 export const MONGO_DUPLICATE_KEY_ERROR_CODE = 11000;

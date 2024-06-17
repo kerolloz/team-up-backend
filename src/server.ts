@@ -1,8 +1,8 @@
+import http from 'http';
 import colors from 'colors';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import http from 'http';
 import morgan from 'morgan';
 import { exceptionHandler } from './middlewares';
 import routes from './routes';

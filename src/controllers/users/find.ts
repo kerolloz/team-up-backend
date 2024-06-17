@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import Joi from 'joi';
 import mongoose from 'mongoose';
-import { endpoint, SuccessfulResponse } from '../../core/decorators';
+import { SuccessfulResponse, endpoint } from '../../core/decorators';
 import { HttpException, UNPROCESSABLE_ENTITY } from '../../core/exceptions';
 import { UserModel } from '../../models/user';
 
