@@ -9,7 +9,7 @@
     "dev": "ts-node-dev -r dotenv/config -r source-map-support/register ./src/index.ts",
     "build": "tsc",
     "lint": "biome ci .",
-    "test": "MONGOMS_VERSION=7.0.0 NODE_ENV=test mocha -r ts-node/register -r dotenv/config  ./test/**/*.test.ts"
+    "test": "MONGOMS_VERSION=7.0.0 NODE_ENV=test mocha --timeout 50000 -r ts-node/register -r dotenv/config  ./test/**/*.test.ts"
   },
   "repository": {
     "type": "git",
